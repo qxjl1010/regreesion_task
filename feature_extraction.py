@@ -38,8 +38,13 @@ features=array[:,1:]
 features=np.delete(features, 3, 1)
 
 # fit, we can choose f_regression OR mutual_info_regression, we can test both and see the result
-features_new = SelectKBest(f_regression, k=KEEP_FEATURES).fit_transform(features, target)
+# features_new = SelectKBest(f_regression, k=KEEP_FEATURES).fit_transform(features, target)
 
-# print left features
-print(features_new)
+selector = SelectKBest(f_regression, k=KEEP_FEATURES)
+selector.fit(features,target)
+
+X_new = selector.transform(features)
+
+print(selector.get_support(indices=True))
+print(X_new)
 
